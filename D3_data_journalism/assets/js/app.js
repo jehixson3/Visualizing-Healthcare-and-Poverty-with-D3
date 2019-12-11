@@ -25,8 +25,9 @@ var chartGroup = svg.append("g")
 d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
 
 // Import Data
-d3.csv("/assets/data/data.csv", function(err, healthData) {
+d3.csv("/assets/data/data.csv", function(err,healthData) {
   if (err) throw err;
+  
 console.log(healthData)
 
     // Step 1: Parse Data/Cast as numbers
@@ -149,4 +150,4 @@ console.log(healthData)
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("class", "axisText")
       .text("In Poverty (%)");
-  });
+});
