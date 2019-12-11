@@ -22,14 +22,14 @@ var svg = d3.select("body")
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+// Append a div to the body to create tool tips, assign it a class
 d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
 
 // Import Data
-d3.csv("/assets/data/data.csv", function(err,healthData) {
+d3.csv("./assets/data/data.csv").then(function(err, healthData) {
   if (err) throw err;
   
-console.log(healthData)
-
+//console.log(healthData)
     // Step 1: Parse Data/Cast as numbers
     // ==============================
     healthData.forEach(function(data) {
@@ -150,4 +150,6 @@ console.log(healthData)
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("class", "axisText")
       .text("In Poverty (%)");
+
 });
+    
