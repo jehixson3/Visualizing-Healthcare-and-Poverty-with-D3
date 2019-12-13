@@ -26,8 +26,7 @@ var chartGroup = svg.append("g")
 d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
 
 // Import Data
-d3.csv("./assets/data/data.csv").then(function(err, healthData) {
-  if (err) throw err;
+d3.csv("/assets/data/data.csv").then(function(healthData) {
   
 //console.log(healthData)
     // Step 1: Parse Data/Cast as numbers
@@ -92,8 +91,7 @@ d3.csv("./assets/data/data.csv").then(function(err, healthData) {
     .attr("cy", d => yLinearScale(d.poverty +0.3))
     .attr("r", "12")
     .attr("fill", "blue")
-    .attr("opacity", ".5")
-
+    .attr("opacity", ".2")
     .on("mouseout", function(data, index) {
       toolTip.hide(data);
     });
@@ -131,8 +129,8 @@ d3.csv("./assets/data/data.csv").then(function(err, healthData) {
         .attr("x", function(data) {
             return xLinearScale(data.healthcare +1.3);
         })
-        .attr("y", function(Data) {
-            return yLinearScale(data.poverty +.1);
+        .attr("y", function(data) {
+            return yLinearScale(data.poverty +.2);
         })
         .text(function(data) {
             return data.abbr
@@ -144,12 +142,13 @@ d3.csv("./assets/data/data.csv").then(function(err, healthData) {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("Number of Billboard 100 Hits");
+      .text("Lacks Healthcare (%)");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("class", "axisText")
       .text("In Poverty (%)");
 
-});
+})
+.catch(function(err) { console.log(err); });
     
