@@ -1,10 +1,10 @@
 
 // Set up svg
-var svgWidth = 960;
-var svgHeight = 500;
+var svgWidth = 980;
+var svgHeight = 600;
 
 var margin = {
-  top: 20,
+  top: 10,
   right: 40,
   bottom: 60,
   left: 100
@@ -52,19 +52,19 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
     var yMax;
 
     xMin = d3.min(healthData, function (data) {
-       return data.healthcare;
+       return +data.healthcare * .95;
     });
  
     xMax = d3.max(healthData, function (data) {
-      return data.healthcare;
+      return +data.healthcare * 1.05;
     });
 
     yMin = d3.min(healthData, function (data) {
-      return data.poverty;
+      return +data.poverty * .98;
     });
 
     yMax = d3.max(healthData, function (data) {
-      return data.poverty;
+      return +data.poverty * 1.02;
    });
 
    xLinearScale.domain([xMin, xMax]);
@@ -92,6 +92,9 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
     .attr("r", "12")
     .attr("fill", "blue")
     .attr("opacity", ".2")
+    .on("mouseenter", function(data) {
+      toolTip.show(data);
+    })
     .on("mouseout", function(data, index) {
       toolTip.hide(data);
     });
@@ -101,8 +104,14 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
     var toolTip = d3.tip()
       .attr("class", "tooltip")
       .offset([80, -60])
-      .html(function(d) {
-        return (abbr + '%');
+      .html(function(data) {
+        var stateName = data.abbr;
+        var pov = +data.poverty;
+        var hcare = +data.healthcare;
+        return (
+            stateName + '<br> Poverty: ' + pov + '% <br> Healthcare ' + hcare +'%'
+        );
+
       });
 
     // Step 7: Create tooltip in the chart
@@ -130,7 +139,7 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
             return xLinearScale(data.healthcare +1.3);
         })
         .attr("y", function(data) {
-            return yLinearScale(data.poverty +.2);
+            return yLinearScale(data.poverty +0.2);
         })
         .text(function(data) {
             return data.abbr
