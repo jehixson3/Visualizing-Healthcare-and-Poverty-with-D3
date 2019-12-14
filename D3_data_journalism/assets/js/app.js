@@ -67,8 +67,8 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
       return +data.poverty;
    });
 
-   xLinearScale.domain([xMin, xMax]).nice();
-   yLinearScale.domain([yMin, yMax]).nice();
+   xLinearScale.domain([0, xMax]).nice();
+   yLinearScale.domain([0, yMax]).nice();
    console.log(xMin);
    console.log(yMax);
 
@@ -87,8 +87,8 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
     .data(healthData)
     .enter()
     .append("circle")
-    .attr("cx", d => xLinearScale(d.healthcare +1.5))
-    .attr("cy", d => yLinearScale(d.poverty +0.3))
+    .attr("cx", d => xLinearScale(d.healthcare))
+    .attr("cy", d => yLinearScale(d.poverty))
     .attr("r", "12")
     .attr("fill", "blue")
     .attr("opacity", ".2")
@@ -105,11 +105,11 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
       .attr("class", "tooltip")
       .offset([80, -60])
       .html(function(data) {
-        var stateName = data.abbr;
+        var stateName = data.state;
         var pov = +data.poverty;
         var hcare = +data.healthcare;
         return (
-            stateName + '<br> Poverty: ' + pov + '% <br> Healthcare ' + hcare +'%'
+            stateName + '<br> Healthcare ' + hcare +'%' +  '<br> Poverty: ' + pov
         );
 
       });
@@ -136,10 +136,10 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
     .enter()
     .append("tspan")
         .attr("x", function(data) {
-            return xLinearScale(data.healthcare +1.3);
+            return xLinearScale(data.healthcare -0.3);
         })
         .attr("y", function(data) {
-            return yLinearScale(data.poverty +0.2);
+            return yLinearScale(data.poverty - 0.2);
         })
         .text(function(data) {
             return data.abbr
@@ -151,13 +151,12 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("Lacks Healthcare (%)");
+      .text("Poverty (%)");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("class", "axisText")
-      .text("In Poverty (%)");
+      .text("Lacks Healthcare (%)");
 
 })
 .catch(function(err) { console.log(err); });
-    
