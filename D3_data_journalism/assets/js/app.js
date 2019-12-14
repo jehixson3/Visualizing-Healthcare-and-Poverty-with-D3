@@ -35,7 +35,7 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
       data.poverty = +data.poverty;
       data.healthcare = +data.healthcare;
     });
-
+ 
     // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear().range([0, width]);
@@ -52,23 +52,23 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
     var yMax;
 
     xMin = d3.min(healthData, function (data) {
-       return +data.healthcare * .95;
+       return +data.healthcare;
     });
  
     xMax = d3.max(healthData, function (data) {
-      return +data.healthcare * 1.05;
+      return +data.healthcare;
     });
 
     yMin = d3.min(healthData, function (data) {
-      return +data.poverty * .98;
+      return +data.poverty;
     });
 
     yMax = d3.max(healthData, function (data) {
-      return +data.poverty * 1.02;
+      return +data.poverty;
    });
 
-   xLinearScale.domain([xMin, xMax]);
-   yLinearScale.domain([yMin, yMax]);
+   xLinearScale.domain([xMin, xMax]).nice();
+   yLinearScale.domain([yMin, yMax]).nice();
    console.log(xMin);
    console.log(yMax);
 
