@@ -1,5 +1,5 @@
 Is There a Correlation between Healthcare and Poverty in the United States
-Based on 2014 Census data.
+based on 2014 Census data.
 
 Using the healthcare and poverty data from 2014 ACS 1-year estimates.  A scatter plot was created showing the percentages of each based on the States where they live.  Additionally, the index file is run on local host:8000.  Please see Screen Shot of Website to see the html rendered.  Lastly, the review showed the trend in the data and that poverty and lack of healthcare have a strong corrlation with two outliers being Texas and Georgia. 
 
