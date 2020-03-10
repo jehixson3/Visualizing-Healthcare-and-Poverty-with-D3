@@ -66,7 +66,7 @@ d3.csv("/assets/data/data.csv").then(function(healthData) {
     yMax = d3.max(healthData, function (data) {
       return +data.poverty;
    });
-
+  
    xLinearScale.domain([0, xMax]).nice();
    yLinearScale.domain([0, yMax]).nice();
    console.log(xMin);
